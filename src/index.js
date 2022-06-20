@@ -19,6 +19,11 @@ function calculateWinner(squares) {
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c])
       return squares[a];
   }
+
+  if (!squares.includes(null)) {
+    return '=';
+  }
+
   return null;
 }
 
@@ -95,7 +100,9 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
     let status;
-    if (winner) {
+    if (winner === '=') {
+      status = 'Tie';
+    } else if (winner){
       status = 'Winner: ' + winner;
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
